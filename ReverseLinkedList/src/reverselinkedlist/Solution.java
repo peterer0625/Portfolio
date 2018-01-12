@@ -8,6 +8,8 @@ package reverselinkedlist;
 /**
  *
  * @author KT
+ * Description:
+ * Reverse a singly linked list.
  */
 public class Solution
 {
