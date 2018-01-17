@@ -30,6 +30,12 @@
     <ClInclude Include="ClassB.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ClassC.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ClassD.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -42,6 +48,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="ClassB.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ClassC.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ClassD.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
