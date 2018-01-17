@@ -8,10 +8,10 @@ class ClassD;
 class ClassC
 {
 private:
-	ClassD* pClassd;
+    ClassD* pClassd;
 
 public:
-	ClassC();
+    ClassC();
 };
 
 #endif

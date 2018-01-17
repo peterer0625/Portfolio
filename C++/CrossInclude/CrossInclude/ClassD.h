@@ -7,10 +7,10 @@
 class ClassD
 {
 private:
-	ClassC classc;
+    ClassC classc;
 
 public:
-	ClassD();
+    ClassD();
 };
 
 #endif

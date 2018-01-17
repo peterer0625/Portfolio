@@ -6,8 +6,8 @@
 class ClassB
 {
 private:
-	ClassA classa;
+    ClassA classa;
 
 public:
-	ClassB();
+    ClassB();
 };

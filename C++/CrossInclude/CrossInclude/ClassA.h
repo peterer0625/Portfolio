@@ -7,8 +7,8 @@ class ClassB;
 class ClassA
 {
 private:
-	ClassB* pClassb;
+    ClassB* pClassb;
 
 public:
-	ClassA();
+    ClassA();
 };
