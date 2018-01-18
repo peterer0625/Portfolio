@@ -85,6 +85,14 @@ int _tmain(int argc, _TCHAR* argv[])
 
     int **pp = &p;
     cout << **pp + 1 << endl;
+
+    cout << "----------------------------------------" << endl;
+    int aa = 1;
+    int bb = 1;
+    int cc = aa+++bb++;
+    cout << aa << endl;
+    cout << bb << endl;
+    cout << cc << endl;
     
     return 0;
 }
