@@ -93,7 +93,36 @@ int _tmain(int argc, _TCHAR* argv[])
     cout << aa << endl;
     cout << bb << endl;
     cout << cc << endl;
+
+    cout << "----------------------------------------" << endl;
+    // const
+
+    const int d = 0;
+    int const e = 0;
+
+    // compile error
+    // d = 1;
+    // e = 1;
+    int z = 1;
+    int* const f = &z;
+    cout << *f << endl;
+    *f = 2;
+    cout << *f << endl;
+
+    // compile error
+    // int y = 1;
+    // f = &y;
+
+    const int &x = 100;
+    // compile error
+    // x = 200;
+    cout << x << endl;
     
+    const int *g = &z;
+    // compile error
+    // *g = 1;
+    g = &e;
+
     return 0;
 }
 
