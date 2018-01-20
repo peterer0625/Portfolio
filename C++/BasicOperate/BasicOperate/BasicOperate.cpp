@@ -132,6 +132,10 @@ int _tmain(int argc, _TCHAR* argv[])
     r = value >> 1;
     cout << r << endl;
 
+    unsigned int uvalue = 10;
+    unsigned int ur = uvalue >> 1;
+    cout << ur << endl;
+
     return 0;
 }
 
