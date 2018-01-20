@@ -123,6 +123,15 @@ int _tmain(int argc, _TCHAR* argv[])
     // *g = 1;
     g = &e;
 
+    // bit operation
+    int value = -1;
+    int r = value >> 1;
+    cout << r << endl;
+
+    value = 1;
+    r = value >> 1;
+    cout << r << endl;
+
     return 0;
 }
 
