@@ -8,6 +8,7 @@
 int _tmain(int argc, _TCHAR* argv[])
 {
     Base* pBase = (Base *)new Child();
+    cout << endl;
     pBase->print();
     return 0;
 }

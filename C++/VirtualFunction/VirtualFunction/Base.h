@@ -1,9 +1,18 @@
 #pragma once
 
+#include <iostream>
+using namespace std;
+
 class Base
 {
 private:
 
 public:
-    virtual void print() = 0;
+    Base()
+    {
+        cout << "Base" << endl;
+        print();
+    }
+
+    virtual void print();
 };
