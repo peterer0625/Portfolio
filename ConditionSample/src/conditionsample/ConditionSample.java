@@ -34,6 +34,7 @@ public class ConditionSample
                     System.out.println("thread0 wait");
                     condition.await();
                     System.out.println("thread0 wake up");
+                    Thread.sleep(3000);
                 }
                 catch (Exception e)
                 {
@@ -59,6 +60,7 @@ public class ConditionSample
                     System.out.println("thread1 wait");
                     condition.await();
                     System.out.println("thread1 wake up");
+                    Thread.sleep(3000);
                 }
                 catch (Exception e)
                 {
@@ -86,7 +88,7 @@ public class ConditionSample
                     
                     System.out.println("thread2 send signal");
                     condition.signalAll();
-
+                    // condition.signal();
                 }
                 catch (Exception e)
                 {
