@@ -36,8 +36,8 @@ class Solution:
         return result
         
         
-    J = "aA"
-    S = "aAAbbbb"
-    ret = Solution().numJewelsInStones(J, S)
-    print(ret)
+J = "aA"
+S = "aAAbbbb"
+ret = Solution().numJewelsInStones(J, S)
+print(ret)
 
