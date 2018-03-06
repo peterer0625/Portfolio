@@ -7,6 +7,8 @@ Created on Wed Feb 28 17:02:30 2018
 
 import tensorflow as tf
 from tensorflow.examples.tutorials.mnist import input_data
+import cv2
+import numpy as np
 
 tf.app.flags.DEFINE_string('data_dir', '/data/', 'Directory for storing data')
 mnist = input_data.read_data_sets(tf.app.flags.FLAGS.data_dir, one_hot = True)
@@ -33,7 +35,7 @@ cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_hat * tf.log(y), reduction_indic
 train_step = tf.train.AdagradOptimizer(0.01).minimize(cross_entropy)
 
 tf.initialize_all_variables().run()
-for i in range(50):
+for i in range(100):
     batch_x, batch_y = mnist.train.next_batch(100)
     train_step.run({x: batch_x, y_hat: batch_y})  
     correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_hat, 1))
@@ -42,3 +44,24 @@ for i in range(50):
     #print(w.eval())
     #print(y)
     #print(y.eval({x: mnist.test.images}))
+
+#cvImage = cv2.imread("1.jpg", cv2.IMREAD_GRAYSCALE)
+#np_image_data = np.asarray(cvImage)
+#np_final = np.expand_dims(np_image_data, axis = 0)
+#np_final = np_final.reshape([1, 784])
+#print (y.eval({x: np_final}))
+
+#cvImage = cv2.imread("2.jpg", cv2.IMREAD_GRAYSCALE)
+#np_image_data = np.asarray(cvImage)
+#np_final = np.expand_dims(np_image_data, axis = 0)
+#np_final = np_final.reshape([1, 784])
+#print (y.eval({x: np_final}))
+
+#cvImage = cv2.imread("3.jpg", cv2.IMREAD_GRAYSCALE)
+#np_image_data = np.asarray(cvImage)
+#np_final = np.expand_dims(np_image_data, axis = 0)
+#np_final = np_final.reshape([1, 784])
+#print (y.eval({x: np_final}))
+
+
+
