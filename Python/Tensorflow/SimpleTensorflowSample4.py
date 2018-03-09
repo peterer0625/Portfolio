@@ -37,16 +37,20 @@ cross_entropy = tf.reduce_mean(-tf.reduce_sum(y_hat * tf.log(y), reduction_indic
 train_step = tf.train.AdagradOptimizer(0.005).minimize(cross_entropy)
 
 tf.initialize_all_variables().run()
+saver = tf.train.Saver()
 for i in range(500):
     batch_x, batch_y = mnist.train.next_batch(100)
     train_step.run({x: batch_x, y_hat: batch_y})  
     correct_prediction = tf.equal(tf.argmax(y, 1), tf.argmax(y_hat, 1))
     accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))
     print(accuracy.eval({x: mnist.test.images, y_hat: mnist.test.labels}))
+    
+    save_path = saver.save(sess, "D:\\GitHub\\Portfolio\\Python\\Tensorflow\\SimpleTensorflowSample4_model.ckpt")
     #print(w.eval())
     #print(y)
     #print(y.eval({x: mnist.test.images}))
 
+saver.restore(sess, "D:\\GitHub\\Portfolio\\Python\\Tensorflow\\SimpleTensorflowSample4_model.ckpt")
 test = mnist.test.images[0].reshape([1, 784])
 print (str(y.eval({x: test})) + " " +  str(mnist.test.labels[0]))
 test = mnist.test.images[1].reshape([1, 784])
