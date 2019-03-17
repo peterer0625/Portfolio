@@ -13,6 +13,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         GLSurfaceView glSurfaceView = new GLSurfaceView(this);
+        glSurfaceView.setEGLContextClientVersion(2);
+        glSurfaceView.setEGLConfigChooser(8,8,8,8,24,0);
         glSurfaceView.setRenderer(new GLRenderer());
         setContentView(glSurfaceView);
     }

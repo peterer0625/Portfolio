@@ -11,10 +11,12 @@ import javax.microedition.khronos.opengles.GL10;
 
 public class GLRenderer implements android.opengl.GLSurfaceView.Renderer
 {
+    private Cube mCube = null;
 
     @Override
-    public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig) {
-
+    public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig)
+    {
+        this.mCube = new Cube();
     }
 
     @Override
@@ -24,7 +26,11 @@ public class GLRenderer implements android.opengl.GLSurfaceView.Renderer
 
     @Override
     public void onDrawFrame(GL10 gl10) {
-        GLES20.glClearColor(1.0f, 0.0f, 0.0f, 0.0f);
+        GLES20.glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
         GLES20.glClear(GL10.GL_COLOR_BUFFER_BIT | GL10.GL_DEPTH_BUFFER_BIT);
+
+        GLES20.glDisable(GLES20.GL_DEPTH_TEST);
+        GLES20.glDisable(GLES20.GL_CULL_FACE);
+        this.mCube.draw();
     }
 }
