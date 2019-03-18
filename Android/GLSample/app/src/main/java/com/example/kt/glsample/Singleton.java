@@ -10,4 +10,9 @@ public class Singleton
     {
         return sContext;
     }
+
+    synchronized public static void setContext(Context context)
+    {
+        sContext = context;
+    }
 }
