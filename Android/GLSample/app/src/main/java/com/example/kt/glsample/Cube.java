@@ -1,6 +1,10 @@
 package com.example.kt.glsample;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.opengl.GLES20;
+import android.opengl.GLUtils;
 
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
@@ -15,6 +19,7 @@ public class Cube
 {
     private int[] mPositionHandle = new int[1];
     private int[] mIndexHandle = new int[1];
+    private int[] mTextureHandle = new int[1];
 
 
     //       +y     -z
@@ -116,10 +121,26 @@ public class Cube
         this.mProgramColorHandle[0] = GLES20.glGetUniformLocation(this.mProgram[0],"uColor");
     }
 
+    private void initTexture()
+    {
+        Bitmap bitmap = BitmapFactory.decodeResource(Singleton.getContext().getResources(), R.drawable.doraemon);
+        GLES20.glGenTextures(1, this.mTextureHandle, 0);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, this.mTextureHandle[0]);
+
+        GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_LINEAR);
+        GLES20.glTexParameterf(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_MIN_FILTER, GLES20.GL_LINEAR);
+
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, bitmap, 0);
+        bitmap.recycle();
+
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
+    }
+
     public void draw()
     {
-        GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, mPositionHandle[0]);
-        GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, mIndexHandle[0]);
+        GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, this.mPositionHandle[0]);
+        GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, this.mIndexHandle[0]);
+        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, this.mTextureHandle[0]);
 
         GLES20.glUseProgram(this.mProgram[0]);
         GLES20.glEnableVertexAttribArray(this.mProgramPositionHandle[0]);
