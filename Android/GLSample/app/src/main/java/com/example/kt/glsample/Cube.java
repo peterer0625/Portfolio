@@ -35,6 +35,9 @@ public class Cube
     private short mIndexArray[] = { 0, 1, 2,
                                     1, 2, 3};
 
+    private static int sBytesPerFloat = 4;
+    private static int sBytesPerShort = 2;
+
     private int[] mProgram = new int[1];
     private int[] mProgramPositionHandle = new int[1];
     private int[] mProgramColorHandle = new int[1];
@@ -64,8 +67,7 @@ public class Cube
 
     private void initPosition()
     {
-        int bytesPerFloat = 4;
-        ByteBuffer byteBuffer = ByteBuffer.allocateDirect(mPositionArray.length * bytesPerFloat);
+        ByteBuffer byteBuffer = ByteBuffer.allocateDirect(mPositionArray.length * Cube.sBytesPerFloat);
         byteBuffer.order(ByteOrder.nativeOrder());
         FloatBuffer floatBuffer = byteBuffer.asFloatBuffer();
         floatBuffer = byteBuffer.asFloatBuffer();
@@ -74,14 +76,14 @@ public class Cube
 
         GLES20.glGenBuffers(1, mPositionHandle, 0);
         GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, mPositionHandle[0]);
-        GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, floatBuffer.capacity() * bytesPerFloat, floatBuffer, GLES20.GL_STATIC_DRAW);
+        GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, floatBuffer.capacity() * Cube.sBytesPerFloat, floatBuffer, GLES20.GL_STATIC_DRAW);
 
         GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
     }
 
     private void initIndex()
     {
-        ByteBuffer byteBuffer = ByteBuffer.allocateDirect(mIndexArray.length * 2);
+        ByteBuffer byteBuffer = ByteBuffer.allocateDirect(mIndexArray.length * Cube.sBytesPerShort);
         byteBuffer.order(ByteOrder.nativeOrder());
         ShortBuffer shortBuffer = byteBuffer.asShortBuffer();
         shortBuffer = byteBuffer.asShortBuffer();
