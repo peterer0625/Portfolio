@@ -16,6 +16,16 @@ public class Cube
     private int[] mPositionHandle = new int[1];
     private int[] mIndexHandle = new int[1];
 
+
+    //       +y     -z
+    //       |     /
+    //       |   /
+    // -x    | /     +x
+    // -----------------
+    //      /|
+    //    /  |
+    //  /    |
+    //+z     -y
     private float mPositionArray[] = {
             -1.0f,  1.0f,  0.0f, 1.0f,
             -1.0f, -1.0f,  0.0f, 1.0f,
