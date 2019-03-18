@@ -57,23 +57,7 @@ public class Cube
     {
         this.initPosition();
         this.initIndex();
-
-        int vertexShader = GLES20.glCreateShader(GLES20.GL_VERTEX_SHADER);
-        GLES20.glShaderSource(vertexShader, this.mVsCode);
-        GLES20.glCompileShader(vertexShader);
-
-        int pixelShader = GLES20.glCreateShader(GLES20.GL_FRAGMENT_SHADER);
-        GLES20.glShaderSource(pixelShader, this.mPSCode);
-        GLES20.glCompileShader(pixelShader);
-
-        this.mProgram[0] = GLES20.glCreateProgram();
-        GLES20.glAttachShader(this.mProgram[0], vertexShader);
-        GLES20.glAttachShader(this.mProgram[0], pixelShader);
-        GLES20.glLinkProgram(this.mProgram[0]);
-
-        GLES20.glUseProgram(this.mProgram[0]);
-        this.mProgramPositionHandle[0] = GLES20.glGetAttribLocation(this.mProgram[0],"vPosition");
-        this.mProgramColorHandle[0] = GLES20.glGetUniformLocation(this.mProgram[0],"uColor");
+        this.initShader();
 
         this.setColors(1.0f, 1.0f, 0.0f);
     }
@@ -108,6 +92,26 @@ public class Cube
         GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, mIndexHandle[0]);
         GLES20.glBufferData(GLES20.GL_ELEMENT_ARRAY_BUFFER, shortBuffer.capacity() * 2, shortBuffer, GLES20.GL_STATIC_DRAW);
         GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, 0);
+    }
+
+    private void initShader()
+    {
+        int vertexShader = GLES20.glCreateShader(GLES20.GL_VERTEX_SHADER);
+        GLES20.glShaderSource(vertexShader, this.mVsCode);
+        GLES20.glCompileShader(vertexShader);
+
+        int pixelShader = GLES20.glCreateShader(GLES20.GL_FRAGMENT_SHADER);
+        GLES20.glShaderSource(pixelShader, this.mPSCode);
+        GLES20.glCompileShader(pixelShader);
+
+        this.mProgram[0] = GLES20.glCreateProgram();
+        GLES20.glAttachShader(this.mProgram[0], vertexShader);
+        GLES20.glAttachShader(this.mProgram[0], pixelShader);
+        GLES20.glLinkProgram(this.mProgram[0]);
+
+        GLES20.glUseProgram(this.mProgram[0]);
+        this.mProgramPositionHandle[0] = GLES20.glGetAttribLocation(this.mProgram[0],"vPosition");
+        this.mProgramColorHandle[0] = GLES20.glGetUniformLocation(this.mProgram[0],"uColor");
     }
 
     public void draw()
