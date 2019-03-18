@@ -56,18 +56,7 @@ public class Cube
     public Cube()
     {
         this.initPosition();
-
-        ByteBuffer byteBuffer = ByteBuffer.allocateDirect(mIndexArray.length * 2);
-        byteBuffer.order(ByteOrder.nativeOrder());
-        ShortBuffer shortBuffer = byteBuffer.asShortBuffer();
-        shortBuffer = byteBuffer.asShortBuffer();
-        shortBuffer.put(mIndexArray);
-        shortBuffer.position(0);
-
-        GLES20.glGenBuffers(1, mIndexHandle, 0);
-        GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, mIndexHandle[0]);
-        GLES20.glBufferData(GLES20.GL_ELEMENT_ARRAY_BUFFER, shortBuffer.capacity() * 2, shortBuffer, GLES20.GL_STATIC_DRAW);
-        GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, 0);
+        this.initIndex();
 
         int vertexShader = GLES20.glCreateShader(GLES20.GL_VERTEX_SHADER);
         GLES20.glShaderSource(vertexShader, this.mVsCode);
@@ -104,6 +93,21 @@ public class Cube
         GLES20.glBufferData(GLES20.GL_ARRAY_BUFFER, floatBuffer.capacity() * bytesPerFloat, floatBuffer, GLES20.GL_STATIC_DRAW);
 
         GLES20.glBindBuffer(GLES20.GL_ARRAY_BUFFER, 0);
+    }
+
+    private void initIndex()
+    {
+        ByteBuffer byteBuffer = ByteBuffer.allocateDirect(mIndexArray.length * 2);
+        byteBuffer.order(ByteOrder.nativeOrder());
+        ShortBuffer shortBuffer = byteBuffer.asShortBuffer();
+        shortBuffer = byteBuffer.asShortBuffer();
+        shortBuffer.put(mIndexArray);
+        shortBuffer.position(0);
+
+        GLES20.glGenBuffers(1, mIndexHandle, 0);
+        GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, mIndexHandle[0]);
+        GLES20.glBufferData(GLES20.GL_ELEMENT_ARRAY_BUFFER, shortBuffer.capacity() * 2, shortBuffer, GLES20.GL_STATIC_DRAW);
+        GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER, 0);
     }
 
     public void draw()
