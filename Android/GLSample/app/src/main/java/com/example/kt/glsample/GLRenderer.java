@@ -12,16 +12,24 @@ import javax.microedition.khronos.opengles.GL10;
 public class GLRenderer implements android.opengl.GLSurfaceView.Renderer
 {
     private Cube mCube = null;
+    private FBO mFBO = null;
+
+    private int mWidth = 0;
+    private int mHeight = 0;
 
     @Override
     public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig)
     {
         this.mCube = new Cube();
+        this.mFBO = new FBO(512, 512);
     }
 
     @Override
-    public void onSurfaceChanged(GL10 gl10, int width, int height) {
+    public void onSurfaceChanged(GL10 gl10, int width, int height)
+    {
         GLES20.glViewport(0, 0, width, height);
+        this.mWidth = width;
+        this.mHeight = height;
     }
 
     @Override
@@ -31,6 +39,12 @@ public class GLRenderer implements android.opengl.GLSurfaceView.Renderer
 
         GLES20.glDisable(GLES20.GL_DEPTH_TEST);
         GLES20.glDisable(GLES20.GL_CULL_FACE);
-        this.mCube.draw();
+
+        this.mFBO.bind();
+        this.mCube.draw(null);
+        this.mFBO.unBind();
+
+        GLES20.glViewport(0, 0, this.mWidth, this.mHeight);
+        this.mFBO.draw();
     }
 }
