@@ -11,6 +11,9 @@ public class MyGLSurfaceView extends GLSurfaceView {
         MyEGLContextFactory contextFactory = new MyEGLContextFactory(2);
         this.setEGLContextFactory(contextFactory);
 
+        MyEGLWindowSurfaceFactory windowSurfaceFactory = new MyEGLWindowSurfaceFactory();
+        this.setEGLWindowSurfaceFactory(windowSurfaceFactory);
+
         this.setEGLConfigChooser(8,8,8,8,24,0);
         this.setRenderer(new GLRenderer());
     }
