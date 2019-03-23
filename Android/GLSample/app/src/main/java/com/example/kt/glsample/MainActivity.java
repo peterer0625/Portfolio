@@ -15,9 +15,6 @@ public class MainActivity extends AppCompatActivity
         Singleton.setContext(this);
 
         MyGLSurfaceView glSurfaceView = new MyGLSurfaceView(this);
-        glSurfaceView.setEGLContextClientVersion(2);
-        glSurfaceView.setEGLConfigChooser(8,8,8,8,24,0);
-        glSurfaceView.setRenderer(new GLRenderer());
         setContentView(glSurfaceView);
     }
 }
