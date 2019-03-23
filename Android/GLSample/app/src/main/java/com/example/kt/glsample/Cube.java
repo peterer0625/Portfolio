@@ -206,7 +206,7 @@ public class Cube
         GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, 0);
     }
 
-    public void draw()
+    public void draw(int[] textureHandle)
     {
         GLES20.glUseProgram(this.mProgram[0]);
         GLES20.glEnableVertexAttribArray(this.mProgramPositionHandle[0]);
@@ -227,7 +227,14 @@ public class Cube
         GLES20.glUniform4fv(this.mFragmentProgramColorHandle[0],1, this.mColor, 0);
 
         GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
-        GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, this.mTextureHandle[0]);
+        if (textureHandle == null)
+        {
+            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, this.mTextureHandle[0]);
+        }
+        else
+        {
+            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureHandle[0]);
+        }
         GLES20.glUniform1i(this.mFragmentProgramTextureHandle[0], 0);
 
         GLES20.glDrawElements(GLES20.GL_TRIANGLES, mIndexArray.length, GLES20.GL_UNSIGNED_SHORT, 0);
