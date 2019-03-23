@@ -8,11 +8,11 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.egl.EGLContext;
 import javax.microedition.khronos.egl.EGLDisplay;
 
-public class MyContextFactory implements GLSurfaceView.EGLContextFactory {
+public class MyEGLContextFactory implements GLSurfaceView.EGLContextFactory {
 
     private int mEGLContextClientVersion;
 
-    public MyContextFactory(int EGLContextClientVersion)
+    public MyEGLContextFactory(int EGLContextClientVersion)
     {
         this.mEGLContextClientVersion = EGLContextClientVersion;
     }

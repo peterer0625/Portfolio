@@ -8,7 +8,7 @@ public class MyGLSurfaceView extends GLSurfaceView {
     {
         super(context);
 
-        MyContextFactory contextFactory = new MyContextFactory(2);
+        MyEGLContextFactory contextFactory = new MyEGLContextFactory(2);
         this.setEGLContextFactory(contextFactory);
 
         this.setEGLConfigChooser(8,8,8,8,24,0);
