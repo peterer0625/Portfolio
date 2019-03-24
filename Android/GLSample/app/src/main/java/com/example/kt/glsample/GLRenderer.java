@@ -43,6 +43,7 @@ public class GLRenderer implements android.opengl.GLSurfaceView.Renderer
         this.mFBO.bind();
         this.mCube.draw(null);
         this.mFBO.unBind();
+        this.mFBO.read();
 
         GLES20.glViewport(0, 0, this.mWidth, this.mHeight);
         this.mFBO.draw();
