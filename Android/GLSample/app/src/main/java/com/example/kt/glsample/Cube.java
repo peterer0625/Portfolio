@@ -105,7 +105,6 @@ public class Cube
         ByteBuffer byteBuffer = ByteBuffer.allocateDirect(mPositionArray.length * Cube.sBytesPerFloat);
         byteBuffer.order(ByteOrder.nativeOrder());
         FloatBuffer floatBuffer = byteBuffer.asFloatBuffer();
-        floatBuffer = byteBuffer.asFloatBuffer();
         floatBuffer.put(mPositionArray);
         floatBuffer.position(0);
 
@@ -121,7 +120,6 @@ public class Cube
         ByteBuffer byteBuffer = ByteBuffer.allocateDirect(mIndexArray.length * Cube.sBytesPerShort);
         byteBuffer.order(ByteOrder.nativeOrder());
         ShortBuffer shortBuffer = byteBuffer.asShortBuffer();
-        shortBuffer = byteBuffer.asShortBuffer();
         shortBuffer.put(mIndexArray);
         shortBuffer.position(0);
 
@@ -136,7 +134,6 @@ public class Cube
         ByteBuffer byteBuffer = ByteBuffer.allocateDirect(mColorArray.length * Cube.sBytesPerFloat);
         byteBuffer.order(ByteOrder.nativeOrder());
         FloatBuffer floatBuffer = byteBuffer.asFloatBuffer();
-        floatBuffer = byteBuffer.asFloatBuffer();
         floatBuffer.put(mColorArray);
         floatBuffer.position(0);
 
@@ -152,7 +149,6 @@ public class Cube
         ByteBuffer byteBuffer = ByteBuffer.allocateDirect(this.mTextureCoordinateArray.length * Cube.sBytesPerFloat);
         byteBuffer.order(ByteOrder.nativeOrder());
         FloatBuffer floatBuffer = byteBuffer.asFloatBuffer();
-        floatBuffer = byteBuffer.asFloatBuffer();
         floatBuffer.put(mTextureCoordinateArray);
         floatBuffer.position(0);
 
