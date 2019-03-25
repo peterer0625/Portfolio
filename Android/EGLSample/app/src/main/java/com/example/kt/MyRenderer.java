@@ -17,6 +17,7 @@ public class MyRenderer extends HandlerThread
     private EGLConfig mEGLConfig = null;
     private EGLDisplay mEGLDisplay = EGL14.EGL_NO_DISPLAY;
     private EGLContext mEGLContext = EGL14.EGL_NO_CONTEXT;
+    private EGLSurface mEGLSurface = null;
 
     private Cube mCube = null;
 
@@ -64,8 +65,6 @@ public class MyRenderer extends HandlerThread
         {
             throw new RuntimeException("EGL error "+EGL14.eglGetError());
         }
-
-        this.mCube = new Cube();
     }
 
     private void destroyContext()
@@ -77,13 +76,26 @@ public class MyRenderer extends HandlerThread
         mEGLDisplay = EGL14.EGL_NO_DISPLAY;
     }
 
-    public void render(Surface surface, int width, int height)
+    public void onSurfaceCreated(Surface surface)
     {
+        Log.d(TAG, "onSurfaceCreated()");
         final int[] surfaceAttribs = { EGL14.EGL_NONE };
-        EGLSurface eglSurface = EGL14.eglCreateWindowSurface(mEGLDisplay, mEGLConfig, surface, surfaceAttribs, 0);
-        EGL14.eglMakeCurrent(mEGLDisplay, eglSurface, eglSurface, mEGLContext);
+        mEGLSurface = EGL14.eglCreateWindowSurface(mEGLDisplay, mEGLConfig, surface, surfaceAttribs, 0);
+        EGL14.eglMakeCurrent(mEGLDisplay, mEGLSurface, mEGLSurface, mEGLContext);
 
+        this.mCube = new Cube();
+    }
+
+    public void onSurfaceChanged(int width, int height)
+    {
+        mSizeDirty = false;
         GLES20.glViewport(0, 0, width, height);
+    }
+
+    public void render()
+    {
+        EGL14.eglMakeCurrent(mEGLDisplay, mEGLSurface, mEGLSurface, mEGLContext);
+
         GLES20.glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT | GLES20.GL_DEPTH_BUFFER_BIT);
 
@@ -92,9 +104,11 @@ public class MyRenderer extends HandlerThread
 
         this.mCube.draw(null);
 
-        EGL14.eglSwapBuffers(mEGLDisplay, eglSurface);
-        EGL14.eglDestroySurface(mEGLDisplay, eglSurface);
+        EGL14.eglSwapBuffers(mEGLDisplay, mEGLSurface);
     }
+
+    private Object mMutex = new Object();
+
     @Override
     public synchronized void start() {
         super.start();
@@ -102,18 +116,45 @@ public class MyRenderer extends HandlerThread
         new Handler(getLooper()).post(new Runnable() {
             @Override
             public void run() {
-                createContext();
+                while (true)
+                {
+                    synchronized (mMutex)
+                    {
+                        if (mEGLContext == EGL14.EGL_NO_CONTEXT)
+                        {
+                            createContext();
+                        }
+                        else if (mSurface != null && mEGLSurface == null)
+                        {
+                            onSurfaceCreated(mSurface);
+                        }
+                        else if (mSizeDirty == true)
+                        {
+                            onSurfaceChanged(mWidth, mHeight);
+                        }
+                        else if (mEGLSurface != null)
+                        {
+                            render();
+                        }
+                    }
+                }
             }
         });
     }
 
-    public void release(){
-        new Handler(getLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                destroyContext();
-                quit();
-            }
-        });
+    private Surface mSurface = null;
+    public void setSurface(Surface surface)
+    {
+        this.mSurface = surface;
+    }
+
+    private int mWidth = 0;
+    private int mHeight = 0;
+    private boolean mSizeDirty = false;
+    public void setSize(int width, int height)
+    {
+        this.mWidth = width;
+        this.mHeight = height;
+        this.mSizeDirty = true;
     }
 }
